@@ -1,19 +1,48 @@
+import time
+
 deck = []
 playerHand = []
+playerHandVis = Label("", 200, 320, size=18)
 def fillDeck():
     var = 1
     while var < 53:
         deck.append(var)
         var += 1
-
+seed(time.time())
 fillDeck()
 
 def giveCards():
     randIndex = randrange(0, 52)
     playerHand.append(deck[randIndex])
     deck.pop(randIndex)
-    print(randIndex + 1)
-    print(deck)
-    print(playerHand)
 
 giveCards()
+
+def defCard(list):
+    suit = 0
+    rank = 0
+    if list == playerHand:
+        for card in playerHand:
+            print(card)
+            if card//13 == 0:
+                suit = "D"
+            elif card//13 == 1:
+                suit = "S"
+            elif card//13 == 2:
+                suit = "C"
+            elif card//13 == 3:
+                suit = "H"
+            if card % 13 == 12:
+                rank = "K"
+            elif card % 13 == 11:
+                rank = "Q"
+            elif card % 13 == 10:
+                rank = "J"
+            elif card % 13 == 0:
+                rank = "A"
+            else:
+                rank = (card % 13) + 1
+                
+            playerHandVis.value = f"{rank} {suit}"
+
+defCard(playerHand)
