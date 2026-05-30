@@ -1,0 +1,10 @@
+deck = []
+
+def fillDeck():
+    var = 1
+    while var < 53:
+        deck.append(var)
+        print(var)
+        var += 1
+
+fillDeck()
