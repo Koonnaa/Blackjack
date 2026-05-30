@@ -2,15 +2,19 @@ import time
 seed(time.time())
 Hit = Group(Rect(100, 250, 50, 50, fill='lightGreen'), Label("Hit", 125, 275))
 Stand = Group(Rect(250, 250, 50, 50, fill='pink'), Label("Stand", 275, 275))
+playAgain = Group(Rect(150, 350, 100, 50, fill='violet'), Label("Play Again?", 200, 375))
 deck = []
 playerHand = []
 app.Stun = False
+app.dealerTurn = False
 playerHandVis = Label("", 200, 320, size = 18)
 dealerHand = []
 dealerHandVis = Label("", 200, 20, size = 18)
 playerScore = Label("",10, 390)
 dealerScore = Label("",10, 10)
 winLose = Label ("", 200, 200, size = 35)
+
+playAgain.opacity = 0
 
 def fillDeck():
     var = 0
@@ -46,7 +50,7 @@ def defCard(list, vis):
             rank = "A"
         else:
             rank = (card % 13) + 1
-        if list == dealerHand and dealerHand[0] == card:
+        if list == dealerHand and dealerHand[0] == card and app.dealerTurn == False:
             vis.value = f" {vis.value} ???"
         else:
             vis.value = f" {vis.value} {rank}{suit}"
@@ -77,6 +81,7 @@ def Score(list):
     print(totalScore)
     return totalScore
 def findWinner():
+    app.Stun = True
     if Score(dealerHand) > 21 and not Score(playerHand) > 21:
         winLose.value = "Win"
     elif Score(playerHand) > 21 and not Score(dealerHand) > 21:
@@ -86,10 +91,14 @@ def findWinner():
             winLose.value = "Win"
         else:
             winLose.value = "Lose"
+    playAgain.opacity = 100
+    
 def Visuals(vis, list):
     vis.value = Score(list)
 
 def Dealer():
+    Visuals(dealerScore, dealerHand)
+    defCard(dealerHand, dealerHandVis)
     while Score(dealerHand) < 17:
         giveCards(dealerHand)
         defCard(dealerHand, dealerHandVis)
@@ -105,8 +114,28 @@ def onMousePress(mouseX, mouseY):
             findWinner()
     elif Stand.hitTest(mouseX, mouseY):
         print('Stand')
-        app.Stun = True
+        app.dealerTurn = True
         Dealer()
+    elif playAgain.hitTest(mouseX, mouseY):
+        deck.clear()
+        playerHand.clear()
+        app.Stun = False
+        app.dealerTurn = False
+        playerHandVis.value = ""
+        dealerHand.clear()
+        dealerHandVis.value = ""
+        playerScore.value = ""
+        dealerScore.value = ""
+        winLose.value = ""
+        fillDeck()
+        giveCards(playerHand)
+        giveCards(playerHand)
+        defCard(playerHand, playerHandVis)
+        giveCards(dealerHand)
+        giveCards(dealerHand)
+        defCard(dealerHand, dealerHandVis)
+        Visuals(playerScore, playerHand)
+        playAgain.opacity = 0
 
 fillDeck()
 giveCards(playerHand)
