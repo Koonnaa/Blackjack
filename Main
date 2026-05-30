@@ -72,21 +72,40 @@ def Score(list):
         if Aces - acesUsed > 0:
             totalScore -= 10
             acesUsed += 1
-
+        else:
+            break
     print(totalScore)
     return totalScore
+def findWinner()
+    if Score(dealerHand) > 21 and not Score(playerHand) > 21:
+        winLose.value = "Win"
+    elif Score(playerHand) > 21 and not Score(dealerHand) > 21:
+        winLose.value = "Lose"
+    else:
+        if Score(playerHand) > Score(dealerHand):
+            winLose.value = "Win"
+        else:
+            winLose.value = "Lose"
+def Visuals(vis, list):
+    vis.value = Score(list)
 
 def Dealer():
     while Score(dealerHand) < 17:
         giveCards(dealerHand)
         defCard(dealerHand, dealerHandVis)
+        Visuals(dealerScore, dealerHand)
+    findWinner()
 def onMousePress(mouseX, mouseY):
     if Hit.hitTest(mouseX, mouseY) and app.Stun == False:
         print('Hit')
         giveCards(playerHand)
         defCard(playerHand, playerHandVis)
+        Visuals(playerScore, playerHand)
+        if Score(playerHand) > 21:
+            findWinner()
     elif Stand.hitTest(mouseX, mouseY):
         print('Stand')
+        app.Stun = True
         Dealer()
 
 fillDeck()
@@ -96,6 +115,4 @@ defCard(playerHand, playerHandVis)
 giveCards(dealerHand)
 giveCards(dealerHand)
 defCard(dealerHand, dealerHandVis)
-
-
-
+Visuals(playerScore, playerHand)
