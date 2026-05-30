@@ -4,10 +4,12 @@ Hit = Group(Rect(100, 250, 50, 50, fill='lightGreen'), Label("Hit", 125, 275))
 Stand = Group(Rect(250, 250, 50, 50, fill='pink'), Label("Stand", 275, 275))
 deck = []
 playerHand = []
-playerHandVis = Label("", 200, 320, size=18)
+app.Stun = False
+playerHandVis = Label("", 200, 320, size = 18)
 dealerHand = []
-dealerHandVis = Label("", 200, 20, size=18)
+dealerHandVis = Label("", 200, 20, size = 18)
 playerScore = Label("",10, 390)
+winLose = Label ("", 200, 200, size = 35)
 def fillDeck():
     var = 0
     while var < 52:
@@ -49,6 +51,12 @@ def defCard(list, vis):
 
 def Score(list, vis):
     totalScore = 0
+    Aces = 0
+    acesUsed = 0
+    for aces in list:
+        if aces % 13 == 0:
+            Aces += 1
+    print(Aces)
     for id in list:
         if id % 13 == 12 or id % 13 == 11 or id % 13 == 10:
              totalScore += 10
@@ -56,6 +64,9 @@ def Score(list, vis):
             totalScore += 11
         else:
             totalScore += (id % 13) + 1
+    if totalScore > 21:
+        winLose.value = "lost..."
+        app.Stun = True
     vis.value = totalScore
     print(totalScore)
 fillDeck()
@@ -68,7 +79,7 @@ defCard(dealerHand, dealerHandVis)
 Score(playerHand, playerScore)
 
 def onMousePress(mouseX, mouseY):
-    if Hit.hitTest(mouseX, mouseY):
+    if Hit.hitTest(mouseX, mouseY) and app.Stun == False:
         print('Hit')
         giveCards(playerHand)
         defCard(playerHand, playerHandVis)
