@@ -1,10 +1,19 @@
 deck = []
-
+playerHand = []
 def fillDeck():
     var = 1
     while var < 53:
         deck.append(var)
-        print(var)
         var += 1
 
 fillDeck()
+
+def giveCards():
+    randIndex = randrange(0, 52)
+    playerHand.append(deck[randIndex])
+    deck.pop(randIndex)
+    print(randIndex + 1)
+    print(deck)
+    print(playerHand)
+
+giveCards()
