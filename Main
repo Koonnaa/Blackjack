@@ -64,6 +64,15 @@ def Score(list, vis):
             totalScore += 11
         else:
             totalScore += (id % 13) + 1
+    
+    while totalScore > 21 and Aces > 0:
+        if Aces - acesUsed > 0:
+            totalScore -= 10
+            acesUsed += 1
+        else:
+            winLose.value = "lost..."
+            app.Stun = True
+            break
     if totalScore > 21:
         winLose.value = "lost..."
         app.Stun = True
