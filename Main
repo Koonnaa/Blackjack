@@ -76,7 +76,7 @@ def Score(list):
             break
     print(totalScore)
     return totalScore
-def findWinner()
+def findWinner():
     if Score(dealerHand) > 21 and not Score(playerHand) > 21:
         winLose.value = "Win"
     elif Score(playerHand) > 21 and not Score(dealerHand) > 21:
