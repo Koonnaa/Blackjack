@@ -51,7 +51,7 @@ def defCard(list, vis):
         else:
             vis.value = f" {vis.value} {rank}{suit}"
 
-def Score(list, vis):
+def Score(list):
     totalScore = 0
     Aces = 0
     acesUsed = 0
@@ -72,23 +72,19 @@ def Score(list, vis):
         if Aces - acesUsed > 0:
             totalScore -= 10
             acesUsed += 1
-        else:
-            winLose.value = "lost..."
-            app.Stun = True
-            break
-    vis.value = totalScore
+
     print(totalScore)
+    return totalScore
 
 def Dealer():
-    giveCards(dealerHand)
-    defCard(dealerHand, dealerHandVis)
-    Score(dealerHand, dealerScore)
+    while Score(dealerHand) < 17:
+        giveCards(dealerHand)
+        defCard(dealerHand, dealerHandVis)
 def onMousePress(mouseX, mouseY):
     if Hit.hitTest(mouseX, mouseY) and app.Stun == False:
         print('Hit')
         giveCards(playerHand)
         defCard(playerHand, playerHandVis)
-        Score(playerHand, playerScore)
     elif Stand.hitTest(mouseX, mouseY):
         print('Stand')
         Dealer()
@@ -100,4 +96,6 @@ defCard(playerHand, playerHandVis)
 giveCards(dealerHand)
 giveCards(dealerHand)
 defCard(dealerHand, dealerHandVis)
-Score(playerHand, playerScore)
+
+
+
