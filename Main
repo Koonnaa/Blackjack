@@ -10,8 +10,8 @@ app.dealerTurn = False
 playerHandVis = Label("", 200, 320, size = 18)
 dealerHand = []
 dealerHandVis = Label("", 200, 20, size = 18)
-playerScore = Label("",10, 390)
-dealerScore = Label("",10, 10)
+playerScore = Label("",10, 390, size = 18)
+dealerScore = Label("",10, 10, size = 18)
 winLose = Label ("", 200, 200, size = 35)
 
 playAgain.opacity = 0
