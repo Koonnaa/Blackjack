@@ -21,8 +21,8 @@ def giveCards(list):
 def defCard(list, vis):
     suit = 0
     rank = 0
+    vis.value = ''
     for card in list:
-        print(card)
         if card//13 == 0:
             suit = "D"
         elif card//13 == 1:
@@ -53,3 +53,11 @@ defCard(playerHand, playerHandVis)
 giveCards(dealerHand)
 giveCards(dealerHand)
 defCard(dealerHand, dealerHandVis)
+
+def onMousePress(mouseX, mouseY):
+    if Hit.hitTest(mouseX, mouseY):
+        print('Hit')
+        giveCards(playerHand)
+        defCard(playerHand, playerHandVis)
+    elif Stand.hitTest(mouseX, mouseY):
+        print('Stand')
