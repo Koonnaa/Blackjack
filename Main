@@ -1,5 +1,7 @@
 import time
 seed(time.time())
+Hit = Group(Rect(100, 250, 50, 50, fill='lightGreen'), Label("Hit", 125, 275))
+Stand = Group(Rect(250, 250, 50, 50, fill='pink'), Label("Stand", 275, 275))
 deck = []
 playerHand = []
 playerHandVis = Label("", 200, 320, size=18)
