@@ -57,6 +57,7 @@ def Score(list, vis):
         if aces % 13 == 0:
             Aces += 1
     print(Aces)
+    
     for id in list:
         if id % 13 == 12 or id % 13 == 11 or id % 13 == 10:
              totalScore += 10
@@ -65,7 +66,7 @@ def Score(list, vis):
         else:
             totalScore += (id % 13) + 1
     
-    while totalScore > 21 and Aces > 0:
+    while totalScore > 21:
         if Aces - acesUsed > 0:
             totalScore -= 10
             acesUsed += 1
@@ -73,11 +74,9 @@ def Score(list, vis):
             winLose.value = "lost..."
             app.Stun = True
             break
-    if totalScore > 21:
-        winLose.value = "lost..."
-        app.Stun = True
     vis.value = totalScore
     print(totalScore)
+
 fillDeck()
 giveCards(playerHand)
 giveCards(playerHand)
