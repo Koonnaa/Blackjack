@@ -100,6 +100,7 @@ def Dealer():
     Visuals(dealerScore, dealerHand)
     defCard(dealerHand, dealerHandVis)
     while Score(dealerHand) < 17:
+        sleep(0.6)
         giveCards(dealerHand)
         defCard(dealerHand, dealerHandVis)
         Visuals(dealerScore, dealerHand)
